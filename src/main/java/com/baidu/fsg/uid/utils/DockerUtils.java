@@ -15,7 +15,7 @@
  */
 package com.baidu.fsg.uid.utils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author yutianbao
  */
-public abstract class DockerUtils {
+public final class DockerUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(DockerUtils.class);
 
     /** Environment param keys */
@@ -42,6 +42,9 @@ public abstract class DockerUtils {
     static {
         retrieveFromEnv();
     }
+
+    /** Private Constructor */
+    private DockerUtils(){}
 
     /**
      * Retrieve docker host
@@ -96,7 +99,7 @@ public abstract class DockerUtils {
 
         } else {
             LOGGER.error("Missing host or port from env for Docker. host:{}, port:{}", DOCKER_HOST, DOCKER_PORT);
-            throw new RuntimeException(
+            throw new IllegalArgumentException (
                     "Missing host or port from env for Docker. host:" + DOCKER_HOST + ", port:" + DOCKER_PORT);
         }
     }

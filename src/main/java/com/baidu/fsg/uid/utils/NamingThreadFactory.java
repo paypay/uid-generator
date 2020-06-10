@@ -20,8 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +70,7 @@ public class NamingThreadFactory implements ThreadFactory {
         this.name = name;
         this.daemon = daemon;
         this.uncaughtExceptionHandler = handler;
-        this.sequences = new ConcurrentHashMap<String, AtomicLong>();
+        this.sequences = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -91,6 +91,7 @@ public class NamingThreadFactory implements ThreadFactory {
             thread.setUncaughtExceptionHandler(this.uncaughtExceptionHandler);
         } else {
             thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+                @Override
                 public void uncaughtException(Thread t, Throwable e) {
                     LOGGER.error("unhandled exception in thread: " + t.getId() + ":" + t.getName(), e);
                 }
